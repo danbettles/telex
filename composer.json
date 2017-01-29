@@ -14,7 +14,7 @@
         "psr-4": {"DanBettles\\Telex\\": "src/DanBettles/Telex/"}
     },
     "scripts": {
-        "app:test": "phpunit tests",
+        "app:test": "phpunit -c tests/phpunit.xml tests",
         "app:lint": "phpcs --standard=phpcs.xml --extensions=php -p --ignore=/vendor/ .",
         "app:check-quality": [
             "composer app:test",

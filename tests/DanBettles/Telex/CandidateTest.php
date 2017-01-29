@@ -5,11 +5,11 @@
  * @author Dan Bettles <danbettles@yahoo.co.uk>
  */
 
-namespace Tests\DanBettles\Telex\Candidate;
+namespace Tests\DanBettles\Telex;
 
 use DanBettles\Telex\Candidate;
 
-class Test extends \PHPUnit_Framework_TestCase
+class CandidateTest extends \PHPUnit_Framework_TestCase
 {
     public function testIsInstantiable()
     {

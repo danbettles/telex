@@ -5,12 +5,12 @@
  * @author Dan Bettles <danbettles@yahoo.co.uk>
  */
 
-namespace Tests\DanBettles\Telex\NumberFinder;
+namespace Tests\DanBettles\Telex;
 
 use DanBettles\Telex\NumberFinder;
 use DanBettles\Telex\Candidate;
 
-class Test extends \PHPUnit_Framework_TestCase
+class NumberFinderTest extends \PHPUnit_Framework_TestCase
 {
     public static function providesTelephoneNumbers()
     {

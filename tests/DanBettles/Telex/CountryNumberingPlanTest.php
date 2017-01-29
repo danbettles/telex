@@ -5,11 +5,11 @@
  * @author Dan Bettles <danbettles@yahoo.co.uk>
  */
 
-namespace Tests\DanBettles\Telex\CountryNumberingPlan;
+namespace Tests\DanBettles\Telex;
 
 use DanBettles\Telex\CountryNumberingPlan;
 
-class Test extends \PHPUnit_Framework_TestCase
+class CountryNumberingPlanTest extends \PHPUnit_Framework_TestCase
 {
     public function testIsInstantiable()
     {

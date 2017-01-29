@@ -21,7 +21,8 @@ $matches = $telex->findAll('A UK landline number: (01234) 567 890.  A UK mobile 
 
 ## TODO
 
-* Encode patterns for area codes, and well-structured local numbers, whenever practicable to increase the precision of the matcher.
+* Encode patterns for area codes, and well-structured local numbers, whenever practicable, to increase the precision of the matcher.
 * Write more tests, especially for `Telex`.
 * Handle multiple adjacent numbers.
 * In the matcher, trim trailing non-numeric characters from the matched string?
+* Add logging to the find methods in Telex to make it easier to identify the causes of mismatches.

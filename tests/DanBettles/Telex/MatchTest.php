@@ -5,12 +5,12 @@
  * @author Dan Bettles <danbettles@yahoo.co.uk>
  */
 
-namespace Tests\DanBettles\Telex\Match;
+namespace Tests\DanBettles\Telex;
 
 use DanBettles\Telex\Match;
 use DanBettles\Telex\Candidate;
 
-class Test extends \PHPUnit_Framework_TestCase
+class MatchTest extends \PHPUnit_Framework_TestCase
 {
     public function testIsInstantiable()
     {

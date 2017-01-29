@@ -5,19 +5,20 @@
  * @author Dan Bettles <danbettles@yahoo.co.uk>
  */
 
-namespace Tests\DanBettles\Telex\Telex;
+namespace Tests\DanBettles\Telex;
 
 use DanBettles\Telex\Telex;
 use DanBettles\Telex\NumberFinder;
 use DanBettles\Telex\CountryTelephoneNumberMatcherFactory;
+use Tests\TestCase;
 
-class Test extends \PHPUnit_Framework_TestCase
+class TelexTest extends TestCase
 {
-//    private function createTelex()
-//    {
-//        return new Telex(new NumberFinder(), new CountryTelephoneNumberMatcherFactory());
-//    }
-//
+    private function createTelex()
+    {
+        return new Telex(new NumberFinder(), new CountryTelephoneNumberMatcherFactory());
+    }
+
     public function testIsInstantiable()
     {
         $numberFinder = new NumberFinder();
@@ -47,5 +48,44 @@ class Test extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('DanBettles\Telex\Match', $mobileMatch);
         $this->assertSame('+44 (0)7123 456 789.', $mobileMatch->getCandidate()->getSource());
         $this->assertSame('4407123456789', $mobileMatch->getCandidate()->getNumber());
+    }
+
+    public function providesTextContainingTelNums()
+    {
+        $file = fopen($this->getFixtureFilename('telephone_numbers.csv'), 'r');
+
+        $argLists = [];
+
+        while ($record = fgetcsv($file)) {
+            $record[0] = (int) $record[0];
+            $argLists[] = $record;
+        }
+
+        fclose($file);
+
+        return $argLists;
+    }
+
+    /**
+     * @dataProvider providesTextContainingTelNums
+     * @group functional
+     */
+    public function testFindallFindsTheExpectedNumberOfTelephoneNumbersInText($expected, $input)
+    {
+        $matches = $this->createTelex()->findAll($input);
+
+        $this->assertTrue(is_array($matches));
+        $this->assertCount($expected, $matches);
+    }
+
+    public static function providesTelNumsThatHighlightProblems()
+    {
+        return [[
+            1,  //expected.  Actual = 2.
+            '0039 02 876774',
+        ], [
+            1,  //expected.  Actual = 2.
+            '0039 02 76006132',
+        ]];
     }
 }

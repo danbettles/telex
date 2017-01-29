@@ -5,11 +5,11 @@
  * @author Dan Bettles <danbettles@yahoo.co.uk>
  */
 
-namespace Tests\DanBettles\Telex\CountryTelephoneNumberMatcherFactory;
+namespace Tests\DanBettles\Telex;
 
 use DanBettles\Telex\CountryTelephoneNumberMatcherFactory;
 
-class Test extends \PHPUnit_Framework_TestCase
+class CountryTelephoneNumberMatcherFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testIsInstantiable()
     {

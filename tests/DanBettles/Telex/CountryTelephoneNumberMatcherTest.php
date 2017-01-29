@@ -5,14 +5,14 @@
  * @author Dan Bettles <danbettles@yahoo.co.uk>
  */
 
-namespace Tests\DanBettles\Telex\CountryTelephoneNumberMatcher;
+namespace Tests\DanBettles\Telex;
 
 use DanBettles\Telex\CountryTelephoneNumberMatcher;
 use DanBettles\Telex\Candidate;
 use DanBettles\Telex\CountryNumberingPlan;
 use DanBettles\Telex\Match;
 
-class Test extends \PHPUnit_Framework_TestCase
+class CountryTelephoneNumberMatcherTest extends \PHPUnit_Framework_TestCase
 {
     private function createGbCountryNumberingPlan()
     {
