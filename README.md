@@ -2,7 +2,7 @@
 
 *Telex* finds telephone numbers in text.
 
-This project is an experiment.  Having written something horribly inflexible to deal with European telephone numbers, I wanted to see if I could write something relatively simple - and a little more elegant - that would detect *any* telephone number with a degree of precision.  *Telex* is certainly more elegant, and probably more useful, than my previous solution, but it's still not reliable.  It's a difficult problem to solve reliably - certainly for me.
+This project is an experiment.  Having written something horribly inflexible to deal with European telephone numbers, I wanted to see if I could write something relatively simple - and a little more elegant - that would detect *any* telephone number with a degree of precision.  *Telex* is certainly more elegant, and probably more useful, than my previous solution, but it's still problematic - it's still too naive.
 
 You're very welcome to contribute.
 
