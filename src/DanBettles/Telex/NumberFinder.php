@@ -50,6 +50,20 @@ class NumberFinder
     }
 
     /**
+     * Removes numeric noise from the specified string to help us correctly identify telephone numbers in `find()`.
+     *
+     * @param string $string
+     * @return string
+     */
+    private function filterString($string)
+    {
+        $filteredString = $string;
+        $filteredString = str_replace($this->findMonetaryStrings($filteredString), '', $filteredString);
+
+        return $filteredString;
+    }
+
+    /**
      * Returns an array containing the details of numbers found in the specified string.
      *
      * @param string $string
@@ -57,8 +71,7 @@ class NumberFinder
      */
     public function find($string)
     {
-        //Remove some numeric noise from the string.
-        $filteredString = str_replace($this->findMonetaryStrings($string), '', $string);
+        $filteredString = $this->filterString($string);
 
         $numChars = strlen($filteredString);
         $collecting = false;
@@ -85,14 +98,23 @@ class NumberFinder
             }
         }
 
-        $candidates = array_map(function ($candidateSource) {
-            return new Candidate($candidateSource);
-        }, $candidateSources);
+        $candidates = [];
 
-        $candidatesContainingNumbers = array_filter($candidates, function (Candidate $candidate) {
-            return 0 < $candidate->getNumberLength();
-        });
+        foreach ($candidateSources as $candidateSource) {
+            //Remove non-numeric trailing characters - these are definitely not significant in any telephone number.
+            $candidateSource = preg_replace('/\D+$/', '', $candidateSource);
 
-        return $candidatesContainingNumbers;
+            $candidate = new Candidate($candidateSource);
+
+            if (0 === $candidate->getNumberLength()) {
+                continue;
+            }
+
+            $candidates[] = $candidate;
+        }
+
+        //@todo Filter the candidates.
+
+        return $candidates;
     }
 }

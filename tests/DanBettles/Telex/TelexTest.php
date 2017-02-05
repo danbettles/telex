@@ -40,13 +40,13 @@ class TelexTest extends TestCase
         $landineMatch = $matches[0];
 
         $this->assertInstanceOf('DanBettles\Telex\Match', $landineMatch);
-        $this->assertSame('(01234) 567 890.  ', $landineMatch->getCandidate()->getSource());
+        $this->assertSame('(01234) 567 890', $landineMatch->getCandidate()->getSource());
         $this->assertSame('01234567890', $landineMatch->getCandidate()->getNumber());
 
         $mobileMatch = $matches[1];
 
         $this->assertInstanceOf('DanBettles\Telex\Match', $mobileMatch);
-        $this->assertSame('+44 (0)7123 456 789.', $mobileMatch->getCandidate()->getSource());
+        $this->assertSame('+44 (0)7123 456 789', $mobileMatch->getCandidate()->getSource());
         $this->assertSame('4407123456789', $mobileMatch->getCandidate()->getNumber());
     }
 
