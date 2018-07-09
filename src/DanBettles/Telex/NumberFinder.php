@@ -23,7 +23,7 @@ class NumberFinder
     /**
      * @var string
      */
-    private static $separators = ' ()-+.';
+    private static $separators = ' ()-+.'; // @todo Review this.
 
     /**
      * Finds sensibly-formatted monetary strings in the specified string.
