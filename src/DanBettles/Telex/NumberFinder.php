@@ -50,6 +50,46 @@ class NumberFinder
     }
 
     /**
+     * @param string $string
+     *
+     * @return string[]
+     */
+    private function findDatetimeStrings($string)
+    {
+        // The following regexps are adapted from `https://stackoverflow.com/questions/13194322/php-regex-to-check-date-is-in-yyyy-mm-dd-format`.
+        $datePatterns = [
+            // yyyy/mm/dd, yyyy-mm-dd, yyyy.mm.dd
+            "((((19|[2-9]\d)\d{2})(\/|-|\.)(0[13578]|1[02])(\/|-|\.)(0[1-9]|[12]\d|3[01]))|(((19|[2-9]\d)\d{2})(\/|-|\.)(0[13456789]|1[012])(\/|-|\.)(0[1-9]|[12]\d|30))|(((19|[2-9]\d)\d{2})(\/|-|\.)02(\/|-|\.)(0[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))(\/|-|\.)02(\/|-|\.)29))",
+
+            // mm/dd/yyyy, mm-dd-yyyy, mm.dd.yyyy
+            "(((0[13578]|1[02])(\/|-|\.)(0[1-9]|[12]\d|3[01])(\/|-|\.)((19|[2-9]\d)\d{2}))|((0[13456789]|1[012])(\/|-|\.)(0[1-9]|[12]\d|30)(\/|-|\.)((19|[2-9]\d)\d{2}))|(02(\/|-|\.)(0[1-9]|1\d|2[0-8])(\/|-|\.)((19|[2-9]\d)\d{2}))|(02(\/|-|\.)29(\/|-|\.)((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))",
+
+            // dd/mm/yyyy, dd-mm-yyyy, dd.mm.yyyy
+            "(((0[1-9]|[12]\d|3[01])(\/|-|\.)(0[13578]|1[02])(\/|-|\.)((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)(\/|-|\.)(0[13456789]|1[012])(\/|-|\.)((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])(\/|-|\.)02(\/|-|\.)((19|[2-9]\d)\d{2}))|(29(\/|-|\.)02(\/|-|\.)((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))",
+
+            // mm/dd, mm-dd, mm.dd
+            "(((0[13578]|1[02])(\/|-|\.)(0[1-9]|[12]\d|3[01]))|((0[13456789]|1[012])(\/|-|\.)(0[1-9]|[12]\d|30))|(02(\/|-|\.)(0[1-9]|1\d|2[0-9])))",
+
+            // dd/mm, dd-mm, dd.mm
+            "(((0[1-9]|[12]\d|3[01])(\/|-|\.)(0[13578]|1[02]))|((0[1-9]|[12]\d|30)(\/|-|\.)(0[13456789]|1[012]))|((0[1-9]|1\d|2[0-9])(\/|-|\.)02))",
+        ];
+
+        $finalDatePattern = implode('|', $datePatterns);
+
+        // The following regexp is adapted from `https://stackoverflow.com/questions/11296536/regex-for-time-validation`.
+        $finalTimePattern = "(([0-1][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?)";
+
+        $matches = [];
+
+        $numMatches = preg_match_all("/{$finalDatePattern}|{$finalTimePattern}/", $string, $matches);
+
+        return $numMatches
+            ? $matches[0]
+            : []
+        ;
+    }
+
+    /**
      * Removes numeric noise from the specified string to help us correctly identify telephone numbers in `find()`.
      *
      * @param string $string
@@ -58,6 +98,8 @@ class NumberFinder
     private function filterString($string)
     {
         $filteredString = $string;
+
+        $filteredString = str_replace($this->findDatetimeStrings($filteredString), '', $filteredString);
         $filteredString = str_replace($this->findMonetaryStrings($filteredString), '', $filteredString);
 
         return $filteredString;
