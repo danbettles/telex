@@ -9,8 +9,9 @@ namespace Tests\DanBettles\Telex;
 
 use DanBettles\Telex\NumberFinder;
 use DanBettles\Telex\Candidate;
+use PHPUnit\Framework\TestCase;
 
-class NumberFinderTest extends \PHPUnit_Framework_TestCase
+class NumberFinderTest extends TestCase
 {
     public static function providesTelephoneNumbers()
     {

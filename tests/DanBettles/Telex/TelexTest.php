@@ -25,8 +25,8 @@ class TelexTest extends TestCase
         $countryTelephoneNumberMatcherFactory = new CountryTelephoneNumberMatcherFactory();
         $telex = new Telex($numberFinder, $countryTelephoneNumberMatcherFactory);
 
-        $this->assertSame($numberFinder, $telex->getNumberFinder());
-        $this->assertSame($countryTelephoneNumberMatcherFactory, $telex->getCountryTelephoneNumberMatcherFactory());
+        $this->assertInstanceOf('DanBettles\Telex\NumberFinder', $telex->getNumberFinder());
+        $this->assertInstanceOf('DanBettles\Telex\CountryTelephoneNumberMatcherFactory', $telex->getCountryTelephoneNumberMatcherFactory());
     }
 
     public function testReadmeUsageSnippet()
@@ -34,7 +34,7 @@ class TelexTest extends TestCase
         $telex = new Telex(new NumberFinder(), new CountryTelephoneNumberMatcherFactory());
         $matches = $telex->findAll('A UK landline number: (01234) 567 890.  A UK mobile number: +44 (0)7123 456 789.');
 
-        $this->assertTrue(is_array($matches));
+        $this->assertInternalType('array', $matches);
         $this->assertCount(2, $matches);
 
         $landineMatch = $matches[0];

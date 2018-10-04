@@ -8,8 +8,9 @@
 namespace Tests\DanBettles\Telex;
 
 use DanBettles\Telex\CountryNumberingPlan;
+use PHPUnit\Framework\TestCase;
 
-class CountryNumberingPlanTest extends \PHPUnit_Framework_TestCase
+class CountryNumberingPlanTest extends TestCase
 {
     public function testIsInstantiable()
     {

@@ -13,6 +13,9 @@
     "autoload": {
         "psr-4": {"DanBettles\\Telex\\": "src/DanBettles/Telex/"}
     },
+    "autoload-dev": {
+        "psr-4": {"Tests\\": "tests/"}
+    },
     "scripts": {
         "app:test": "phpunit -c tests/phpunit.xml tests",
         "app:lint": "phpcs --standard=phpcs.xml --extensions=php -p --ignore=/vendor/ .",
@@ -22,7 +25,7 @@
         ]
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.5",
+        "phpunit/phpunit": "^4.8|^5.5|^6.5",
         "squizlabs/php_codesniffer": "^2.6"
     }
 }

@@ -8,12 +8,15 @@
 namespace Tests\DanBettles\Telex;
 
 use DanBettles\Telex\CountryTelephoneNumberMatcherFactory;
+use PHPUnit\Framework\TestCase;
 
-class CountryTelephoneNumberMatcherFactoryTest extends \PHPUnit_Framework_TestCase
+class CountryTelephoneNumberMatcherFactoryTest extends TestCase
 {
     public function testIsInstantiable()
     {
-        new CountryTelephoneNumberMatcherFactory();
+        $factory = new CountryTelephoneNumberMatcherFactory();
+
+        $this->assertInstanceOF('DanBettles\Telex\CountryTelephoneNumberMatcherFactory' , $factory);
     }
 
     public function testCreateforcountrybycodeCreatesAMatcherForTheCountryWithTheSpecifiedCountryCode()
@@ -47,7 +50,7 @@ class CountryTelephoneNumberMatcherFactoryTest extends \PHPUnit_Framework_TestCa
         $factory = new CountryTelephoneNumberMatcherFactory();
         $matchers = $factory->createForAllCountries();
 
-        $this->assertTrue(is_array($matchers));
+        $this->assertInternalType('array', $matchers);
         $this->assertNotEmpty($matchers);
 
         $matcher = end($matchers);
