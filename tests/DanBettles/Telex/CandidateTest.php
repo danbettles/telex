@@ -24,6 +24,7 @@ class CandidateTest extends TestCase
         $candidate = new Candidate('');
         $something = $candidate->setSource('foo');
 
+        $this->assertSame($candidate, $something);
         $this->assertSame('foo', $candidate->getSource());
         $this->assertInstanceOf('DanBettles\Telex\Candidate', $something);
     }
