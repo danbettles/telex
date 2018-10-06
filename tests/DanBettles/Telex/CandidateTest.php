@@ -8,8 +8,9 @@
 namespace Tests\DanBettles\Telex;
 
 use DanBettles\Telex\Candidate;
+use PHPUnit\Framework\TestCase;
 
-class CandidateTest extends \PHPUnit_Framework_TestCase
+class CandidateTest extends TestCase
 {
     public function testIsInstantiable()
     {
@@ -23,8 +24,9 @@ class CandidateTest extends \PHPUnit_Framework_TestCase
         $candidate = new Candidate('');
         $something = $candidate->setSource('foo');
 
-        $this->assertSame('foo', $candidate->getSource());
         $this->assertSame($candidate, $something);
+        $this->assertSame('foo', $candidate->getSource());
+        $this->assertInstanceOf('DanBettles\Telex\Candidate', $something);
     }
 
     public function testGetnumberReturnsTheNumberInTheCandidate()

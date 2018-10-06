@@ -11,8 +11,9 @@ use DanBettles\Telex\CountryTelephoneNumberMatcher;
 use DanBettles\Telex\Candidate;
 use DanBettles\Telex\CountryNumberingPlan;
 use DanBettles\Telex\Match;
+use PHPUnit\Framework\TestCase;
 
-class CountryTelephoneNumberMatcherTest extends \PHPUnit_Framework_TestCase
+class CountryTelephoneNumberMatcherTest extends TestCase
 {
     private function createGbCountryNumberingPlan()
     {

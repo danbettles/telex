@@ -9,8 +9,9 @@ namespace Tests\DanBettles\Telex;
 
 use DanBettles\Telex\Match;
 use DanBettles\Telex\Candidate;
+use PHPUnit\Framework\TestCase;
 
-class MatchTest extends \PHPUnit_Framework_TestCase
+class MatchTest extends TestCase
 {
     public function testIsInstantiable()
     {
@@ -18,6 +19,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $match = new Match($candidate, '01234567890');
 
         $this->assertSame($candidate, $match->getCandidate());
+        $this->assertInstanceOf('DanBettles\Telex\Candidate', $match->getCandidate());
         $this->assertSame('01234567890', $match->getMatch());
     }
 
