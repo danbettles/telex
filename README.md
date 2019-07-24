@@ -1,6 +1,6 @@
 # Telex
 
-[![Build Status](https://travis-ci.org/danbettles/telex.svg?branch=master)](https://travis-ci.org/danbettles/telex)
+[![Build Status](https://travis-ci.com/danbettles/telex.svg?branch=master)](https://travis-ci.com/danbettles/telex)
 
 *Telex* finds telephone numbers in text.
 
