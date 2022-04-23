@@ -10,7 +10,7 @@ namespace DanBettles\Telex;
 /**
  * @author Dan Bettles <danbettles@yahoo.co.uk>
  */
-class Match
+class TelephoneNumberMatch
 {
     /**
      * @var Candidate

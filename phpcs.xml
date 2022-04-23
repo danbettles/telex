@@ -2,6 +2,13 @@
 <ruleset name="Telex Coding Standard">
     <description>Telex Coding Standard</description>
 
+    <file>src/</file>
+    <file>tests/</file>
+
+    <arg name="extensions" value="php"/>
+    <arg value="p"/>
+    <arg name="colors"/>
+
     <rule ref="PSR2">
         <exclude name="Generic.Files.LineLength"/>
         <!--exclude name="Squiz.WhiteSpace.SuperfluousWhitespace"/-->

@@ -7,7 +7,9 @@
 
 namespace Tests\DanBettles\Telex;
 
+use DanBettles\Telex\CountryTelephoneNumberMatcher;
 use DanBettles\Telex\CountryTelephoneNumberMatcherFactory;
+use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 
 class CountryTelephoneNumberMatcherFactoryTest extends TestCase
@@ -16,7 +18,7 @@ class CountryTelephoneNumberMatcherFactoryTest extends TestCase
     {
         $factory = new CountryTelephoneNumberMatcherFactory();
 
-        $this->assertInstanceOF('DanBettles\Telex\CountryTelephoneNumberMatcherFactory' , $factory);
+        $this->assertInstanceOf(CountryTelephoneNumberMatcherFactory::class, $factory);
     }
 
     public function testCreateforcountrybycodeCreatesAMatcherForTheCountryWithTheSpecifiedCountryCode()
@@ -24,7 +26,7 @@ class CountryTelephoneNumberMatcherFactoryTest extends TestCase
         $factory = new CountryTelephoneNumberMatcherFactory();
         $matcher = $factory->createForCountryByCode('gb');
 
-        $this->assertInstanceOf('DanBettles\Telex\CountryTelephoneNumberMatcher', $matcher);
+        $this->assertInstanceOf(CountryTelephoneNumberMatcher::class, $matcher);
 
         $countryNumberingPlan = $matcher->getCountryNumberingPlan();
 
@@ -35,12 +37,11 @@ class CountryTelephoneNumberMatcherFactoryTest extends TestCase
         $this->assertEquals(['00', '011', '0011'], $matcher->getIntlCallPrefixes());
     }
 
-    /**
-     * @expectedException OutOfBoundsException
-     * @expectedExceptionMessage The country numbering plan for the country with the specified country code does not exist.
-     */
     public function testCreateforcountrybycodeThrowsAnExceptionIfTheCountryNumberingPlanForTheCountryWithTheSpecifiedCountryCodeDoesNotExist()
     {
+        $this->expectException(OutOfBoundsException::class);
+        $this->expectExceptionMessage('The country numbering plan for the country with the specified country code does not exist.');
+
         $factory = new CountryTelephoneNumberMatcherFactory();
         $factory->createForCountryByCode('xx');
     }
@@ -50,11 +51,11 @@ class CountryTelephoneNumberMatcherFactoryTest extends TestCase
         $factory = new CountryTelephoneNumberMatcherFactory();
         $matchers = $factory->createForAllCountries();
 
-        $this->assertInternalType('array', $matchers);
+        $this->assertIsArray($matchers);
         $this->assertNotEmpty($matchers);
 
         $matcher = end($matchers);
 
-        $this->assertInstanceOf('DanBettles\Telex\CountryTelephoneNumberMatcher', $matcher);
+        $this->assertInstanceOf(CountryTelephoneNumberMatcher::class, $matcher);
     }
 }

@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class NumberFinderTest extends TestCase
 {
-    public static function providesTelephoneNumbers()
+    public function providesTelephoneNumbers()
     {
         return [[
             [new Candidate('+44 (0)1243 123456')],

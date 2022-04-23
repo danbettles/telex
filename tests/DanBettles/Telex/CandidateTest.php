@@ -26,7 +26,7 @@ class CandidateTest extends TestCase
 
         $this->assertSame($candidate, $something);
         $this->assertSame('foo', $candidate->getSource());
-        $this->assertInstanceOf('DanBettles\Telex\Candidate', $something);
+        $this->assertInstanceOf(Candidate::class, $something);
     }
 
     public function testGetnumberReturnsTheNumberInTheCandidate()
@@ -36,7 +36,7 @@ class CandidateTest extends TestCase
         $this->assertSame('4401243123456', $candidate->getNumber());
     }
 
-    public static function providesCandidatesContainingNumbers()
+    public function providesCandidatesContainingNumbers()
     {
         return [[
             0,

@@ -10,6 +10,7 @@ namespace Tests\DanBettles\Telex;
 use DanBettles\Telex\Telex;
 use DanBettles\Telex\NumberFinder;
 use DanBettles\Telex\CountryTelephoneNumberMatcherFactory;
+use DanBettles\Telex\TelephoneNumberMatch;
 use Tests\TestCase;
 
 class TelexTest extends TestCase
@@ -25,8 +26,8 @@ class TelexTest extends TestCase
         $countryTelephoneNumberMatcherFactory = new CountryTelephoneNumberMatcherFactory();
         $telex = new Telex($numberFinder, $countryTelephoneNumberMatcherFactory);
 
-        $this->assertInstanceOf('DanBettles\Telex\NumberFinder', $telex->getNumberFinder());
-        $this->assertInstanceOf('DanBettles\Telex\CountryTelephoneNumberMatcherFactory', $telex->getCountryTelephoneNumberMatcherFactory());
+        $this->assertInstanceOf(NumberFinder::class, $telex->getNumberFinder());
+        $this->assertInstanceOf(CountryTelephoneNumberMatcherFactory::class, $telex->getCountryTelephoneNumberMatcherFactory());
     }
 
     public function testReadmeUsageSnippet()
@@ -34,18 +35,18 @@ class TelexTest extends TestCase
         $telex = new Telex(new NumberFinder(), new CountryTelephoneNumberMatcherFactory());
         $matches = $telex->findAll('A UK landline number: (01234) 567 890.  A UK mobile number: +44 (0)7123 456 789.');
 
-        $this->assertInternalType('array', $matches);
+        $this->assertIsArray($matches);
         $this->assertCount(2, $matches);
 
         $landineMatch = $matches[0];
 
-        $this->assertInstanceOf('DanBettles\Telex\Match', $landineMatch);
+        $this->assertInstanceOf(TelephoneNumberMatch::class, $landineMatch);
         $this->assertSame('(01234) 567 890', $landineMatch->getCandidate()->getSource());
         $this->assertSame('01234567890', $landineMatch->getCandidate()->getNumber());
 
         $mobileMatch = $matches[1];
 
-        $this->assertInstanceOf('DanBettles\Telex\Match', $mobileMatch);
+        $this->assertInstanceOf(TelephoneNumberMatch::class, $mobileMatch);
         $this->assertSame('+44 (0)7123 456 789', $mobileMatch->getCandidate()->getSource());
         $this->assertSame('4407123456789', $mobileMatch->getCandidate()->getNumber());
     }
@@ -78,7 +79,7 @@ class TelexTest extends TestCase
         $this->assertCount($expected, $matches);
     }
 
-    public static function providesTelNumsThatHighlightProblems()
+    public function providesTelNumsThatHighlightProblems()
     {
         return [[
             1,  //expected.  Actual = 2.

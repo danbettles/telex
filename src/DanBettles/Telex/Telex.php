@@ -63,11 +63,11 @@ class Telex
     }
 
     /**
-     * Returns an array containing a `Match` object for each substring in the specified text that appears to be a
+     * Returns an array containing a `TelephoneNumberMatch` object for each substring in the specified text that appears to be a
      * telephone number.
      *
      * @param string $string
-     * @return Match[]
+     * @return TelephoneNumberMatch[]
      */
     public function findAll($string)
     {

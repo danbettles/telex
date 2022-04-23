@@ -10,7 +10,7 @@ namespace Tests\DanBettles\Telex;
 use DanBettles\Telex\CountryTelephoneNumberMatcher;
 use DanBettles\Telex\Candidate;
 use DanBettles\Telex\CountryNumberingPlan;
-use DanBettles\Telex\Match;
+use DanBettles\Telex\TelephoneNumberMatch;
 use PHPUnit\Framework\TestCase;
 
 class CountryTelephoneNumberMatcherTest extends TestCase
@@ -40,42 +40,42 @@ class CountryTelephoneNumberMatcherTest extends TestCase
         $this->assertEquals($intlCallPrefixes, $matcher->getIntlCallPrefixes());
     }
 
-    public static function providesIntlCandidates()
+    public function providesIntlCandidates()
     {
         $argsRecords = [];
 
         $candidate1 = new Candidate('+44 795 7230 995');
 
         $argsRecords[] = [
-            new Match($candidate1, '447957230995'),
+            new TelephoneNumberMatch($candidate1, '447957230995'),
             $candidate1,
         ];
 
         $candidate2 = new Candidate('+44 (0)795 7230 995');
 
         $argsRecords[] = [
-            new Match($candidate2, '4407957230995'),
+            new TelephoneNumberMatch($candidate2, '4407957230995'),
             $candidate2,
         ];
 
         $candidate3 = new Candidate('0044 795 7230 995');
 
         $argsRecords[] = [
-            new Match($candidate3, '00447957230995'),
+            new TelephoneNumberMatch($candidate3, '00447957230995'),
             $candidate3,
         ];
 
         $candidate4 = new Candidate('0044 (0)795 7230 995');
 
         $argsRecords[] = [
-            new Match($candidate4, '004407957230995'),
+            new TelephoneNumberMatch($candidate4, '004407957230995'),
             $candidate4,
         ];
 
         $candidate5 = new Candidate('+44 795 7230 995.  0795 7230 996');
 
         $argsRecords[] = [
-            new Match($candidate5, '447957230995'),
+            new TelephoneNumberMatch($candidate5, '447957230995'),
             $candidate5,
         ];
 
@@ -92,7 +92,7 @@ class CountryTelephoneNumberMatcherTest extends TestCase
         $this->assertEquals($expected, $this->createGbMatcher()->matchIntl($candidate));
     }
 
-    public static function providesFalseIntlCandidates()
+    public function providesFalseIntlCandidates()
     {
         return [[
             //The string is empty.
@@ -118,28 +118,28 @@ class CountryTelephoneNumberMatcherTest extends TestCase
         $this->assertFalse($this->createGbMatcher()->matchIntl($candidate));
     }
 
-    public static function providesNationalCandidates()
+    public function providesNationalCandidates()
     {
         $argsRecords = [];
 
         $candidate1 = new Candidate('01243 123456');
 
         $argsRecords[] = [
-            new Match($candidate1, '01243123456'),
+            new TelephoneNumberMatch($candidate1, '01243123456'),
             $candidate1,
         ];
 
         $candidate2 = new Candidate('07952 123456');
 
         $argsRecords[] = [
-            new Match($candidate2, '07952123456'),
+            new TelephoneNumberMatch($candidate2, '07952123456'),
             $candidate2,
         ];
 
         $candidate3 = new Candidate('(01243) 123456');
 
         $argsRecords[] = [
-            new Match($candidate3, '01243123456'),
+            new TelephoneNumberMatch($candidate3, '01243123456'),
             $candidate3,
         ];
 
@@ -156,7 +156,7 @@ class CountryTelephoneNumberMatcherTest extends TestCase
         $this->assertEquals($expected, $this->createGbMatcher()->matchNational($candidate));
     }
 
-    public static function providesFalseNationalCandidates()
+    public function providesFalseNationalCandidates()
     {
         return [[
             //The string is empty.
@@ -186,7 +186,7 @@ class CountryTelephoneNumberMatcherTest extends TestCase
         $this->assertFalse($matcher->matchIntl($nonmatchingCandidate));
     }
 
-    public static function providesIntlAndNationalCandidates()
+    public function providesIntlAndNationalCandidates()
     {
         return array_merge(self::providesIntlCandidates(), self::providesNationalCandidates());
     }
@@ -201,7 +201,7 @@ class CountryTelephoneNumberMatcherTest extends TestCase
         $this->assertEquals($expected, $this->createGbMatcher()->matchAny($candidate));
     }
 
-    public static function providesFalseIntlAndNationalCandidates()
+    public function providesFalseIntlAndNationalCandidates()
     {
         return array_merge(self::providesFalseIntlCandidates(), self::providesFalseNationalCandidates());
     }

@@ -78,7 +78,6 @@ class CountryTelephoneNumberMatcher
         return $this->intlCallPrefixes;
     }
 
-    //@todo Extract this.
     private function createAltsSubpattern(array $alts, $capturing = false)
     {
         $altsList = implode('|', $alts);
@@ -160,11 +159,11 @@ class CountryTelephoneNumberMatcher
     }
 
     /**
-     * Returns a `Match` object if the specified candidate appears to contain an international telephone number, or
+     * Returns a `TelephoneNumberMatch` object if the specified candidate appears to contain an international telephone number, or
      * FALSE otherwise.
      *
      * @param Candidate $candidate
-     * @return Match|bool
+     * @return TelephoneNumberMatch|bool
      */
     public function matchIntl(Candidate $candidate)
     {
@@ -176,16 +175,16 @@ class CountryTelephoneNumberMatcher
         $numMatches = preg_match($this->getIntlRegExp(), $candidate->getNumber(), $matchParts);
 
         return $numMatches
-            ? new Match($candidate, $matchParts[0])
+            ? new TelephoneNumberMatch($candidate, $matchParts[0])
             : false;
     }
 
     /**
-     * Returns a `Match` object if the specified candidate appears to contain a national telephone number, or FALSE
+     * Returns a `TelephoneNumberMatch` object if the specified candidate appears to contain a national telephone number, or FALSE
      * otherwise.
      *
      * @param Candidate $candidate
-     * @return Match|bool
+     * @return TelephoneNumberMatch|bool
      */
     public function matchNational(Candidate $candidate)
     {
@@ -197,16 +196,16 @@ class CountryTelephoneNumberMatcher
         $numMatches = preg_match($this->getNationalRegExp(), $candidate->getNumber(), $matchParts);
 
         return $numMatches
-            ? new Match($candidate, $matchParts[0])
+            ? new TelephoneNumberMatch($candidate, $matchParts[0])
             : false;
     }
 
     /**
-     * Returns a `Match` object if the specified candidate appears to contain any kind of telephone number, or FALSE
+     * Returns a `TelephoneNumberMatch` object if the specified candidate appears to contain any kind of telephone number, or FALSE
      * otherwise.
      *
      * @param Candidate $candidate
-     * @return Match|bool
+     * @return TelephoneNumberMatch|bool
      */
     public function matchAny(Candidate $candidate)
     {

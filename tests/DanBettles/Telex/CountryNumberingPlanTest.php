@@ -27,7 +27,7 @@ class CountryNumberingPlanTest extends TestCase
         $this->assertEquals(['0'], $plan->getTrunkPrefixes());
     }
 
-    public static function providesMinIntlLengths()
+    public function providesMinIntlLengths()
     {
         return [[
             12,
@@ -63,7 +63,7 @@ class CountryNumberingPlanTest extends TestCase
         $this->assertSame($expectedLength, $plan->getMinIntlLength());
     }
 
-    public static function providesMinNationalLengths()
+    public function providesMinNationalLengths()
     {
         return [[
             11,
